@@ -14,7 +14,7 @@ def get_computer_choice():
 	computer_choice = random.choice(['R','P','S'])
 	return computer_choice
 
-def beats_list(option):
+def beats_list(user_choice,computer_choice):
 
 	beats_dict = {
 		'R' : {
@@ -40,9 +40,13 @@ def beats_list(option):
 		}
 	}
 
-	option_beats = beats_dict[option]['beats']
-	option_ties = beats_dict[option]['ties']
-	option_loses_to = beats_dict[option]['loses to']
+	user_option_beats = beats_dict[user_choice]['beats']
+	user_option_ties = beats_dict[user_choice]['ties']
+	user_option_loses_to = beats_dict[user_choice]['loses to']
+
+	computer_option_beats = beats_dict[computer_choice]['beats']
+	computer_option_ties = beats_dict[computer_choice]['ties']
+	computer_option_loses_to = beats_dict[computer_choice]['loses to']
 
 
 def main():
