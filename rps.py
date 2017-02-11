@@ -5,17 +5,11 @@ import random
 
 # Greet the user and ask for input
 
-def ask_for_input():
-	print 'Welcome to Rock Paper Scissors.'
-	user_choice = raw_input('Make a choice: rock (R), paper (P) or scissors (S).')
-
-
 def get_computer_choice():
 	computer_choice = random.choice(['R','P','S'])
 	return computer_choice
 
-def beats_list(user_choice,computer_choice):
-
+def get_beats_list(user_choice,computer_choice):
 	beats_dict = {
 		'R' : {
 
@@ -48,16 +42,28 @@ def beats_list(user_choice,computer_choice):
 	computer_option_ties = beats_dict[computer_choice]['ties']
 	computer_option_loses_to = beats_dict[computer_choice]['loses to']
 
+	if user_choice == computer_option_loses_to:
+		print 'You win!'
+	else:
+		print 'The computer wins!'
+
+
+def ask_for_input():
+	print 'Welcome to Rock Paper Scissors.'
+	user_choice = raw_input('Make a choice: rock (R), paper (P) or scissors (S).')
+
+	print 'Your choice was: %s' % (user_choice)
+
+	computer_choice = get_computer_choice()
+
+	print "The computer's choice was: %s" % (computer_choice)
+
+	print get_beats_list(user_choice,computer_choice)
+
 
 def main():
 	print ask_for_input()
 
-	if(user_choice == 'R' || user_choice == 'P' || user_choice == 'S'):
-		print 'You picked %!' % (user_choice)
-		print get_computer_choice()
-		print beats()
-	else:
-		print "I didn't understand that. Try again."
-		print ask_for_input()
+	
 
-	print 
+print main()
