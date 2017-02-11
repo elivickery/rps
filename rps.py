@@ -44,26 +44,35 @@ def get_beats_list(user_choice,computer_choice):
 
 	if user_choice == computer_option_loses_to:
 		print 'You win!'
-	else:
+	elif user_choice == computer_option_beats:
 		print 'The computer wins!'
+	else:
+		print "It's a tie!"
 
 
 def ask_for_input():
 	print 'Welcome to Rock Paper Scissors.'
-	user_choice = raw_input('Make a choice: rock (R), paper (P) or scissors (S).')
+	user_choice = str(raw_input('Make a choice: rock (R), paper (P) or scissors (S).'))
 
-	print 'Your choice was: %s' % (user_choice)
+	if(user_choice == 'R' or user_choice == 'P' or user_choice == 'S'):
 
-	computer_choice = get_computer_choice()
+		print 'Your choice was: %s' % (user_choice)
 
-	print "The computer's choice was: %s" % (computer_choice)
+		computer_choice = get_computer_choice()
 
-	print get_beats_list(user_choice,computer_choice)
+		print "The computer's choice was: %s" % (computer_choice)
+
+		print get_beats_list(user_choice,computer_choice)
+	else:
+		return ready
 
 
 def main():
-	print ask_for_input()
+	ready = 1
 
-	
+	if(ready):
+		print ask_for_input()
+
+
 
 print main()
