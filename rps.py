@@ -5,10 +5,9 @@ import random
 #import time module for print delay
 import time
 
-# Greet the user and ask for input
 
-def print_with_delay(input):
-	print input, time.sleep(0.3)
+# def print_with_delay(input):
+# 	print input, time.sleep(0.3)
 
 def get_computer_choice():
 	computer_choice = random.choice(['R','P','S'])
@@ -49,6 +48,8 @@ def get_beats_list(user_choice,computer_choice):
 	computer_option_loses_to = beats_dict[computer_choice]['loses to']
 	computer_option_alias = beats_dict[computer_choice]['alias']
 
+
+
 	if user_choice == computer_option_loses_to:
 		return 'You win!'
 	elif user_choice == computer_option_beats:
@@ -57,14 +58,13 @@ def get_beats_list(user_choice,computer_choice):
 		return "It's a tie!"
 
 
-def ask_for_input():
-	print 'Welcome to Rock Paper Scissors.'
-	user_choice = str(raw_input('Make a choice: rock (R), paper (P) or scissors (S).'))
-	computer_choice = get_computer_choice()
+
+def get_user_choice():
+	user_choice = str(raw_input('Welcome to Rock Paper Scissors!\nMake a choice: rock (R), paper (P) or scissors (S). ')).upper()
 
 	if(user_choice in ('R','P','S')):
 
-		return "Your choice was: %s. \n The computer's choice was: %s." % (user_choice, computer_choice)
+		return user_choice
 
 	else:
 		return ready
@@ -74,7 +74,12 @@ def main():
 	ready = 1
 
 	if(ready):
-		print ask_for_input()
+		user_choice = get_user_choice()
+		computer_choice = get_computer_choice()
+
+		beats_result = get_beats_list(user_choice, computer_choice)
+
+		return "Your choice was %s.\n\nThe computer's choice was %s.\n\n%s" % (user_choice,computer_choice,beats_result)
 
 
 
