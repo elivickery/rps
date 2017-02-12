@@ -2,8 +2,13 @@
 
 #import random module for later use
 import random
+#import time module for print delay
+import time
 
 # Greet the user and ask for input
+
+def print_with_delay(input):
+	print input, time.sleep(0.3)
 
 def get_computer_choice():
 	computer_choice = random.choice(['R','P','S'])
@@ -12,7 +17,7 @@ def get_computer_choice():
 def get_beats_list(user_choice,computer_choice):
 	beats_dict = {
 		'R' : {
-
+			'alias' : 'rock',
 			'beats' : 'S',
 			'ties' : 'R',
 			'loses to' : 'P'
@@ -20,14 +25,14 @@ def get_beats_list(user_choice,computer_choice):
 			},
 
 		'P' : {
-
+			'alias' : 'paper',
 			'beats' : 'R',
 			'ties' : 'P',
 			'loses to' : 'S'
 		},
 
 		'S' : {
-
+			'alias' : 'scissors',
 			'beats' : 'P',
 			'ties' : 'S',
 			'loses to' : 'R'
@@ -37,32 +42,30 @@ def get_beats_list(user_choice,computer_choice):
 	user_option_beats = beats_dict[user_choice]['beats']
 	user_option_ties = beats_dict[user_choice]['ties']
 	user_option_loses_to = beats_dict[user_choice]['loses to']
+	user_option_alias = beats_dict[user_choice]['alias']
 
 	computer_option_beats = beats_dict[computer_choice]['beats']
 	computer_option_ties = beats_dict[computer_choice]['ties']
 	computer_option_loses_to = beats_dict[computer_choice]['loses to']
+	computer_option_alias = beats_dict[computer_choice]['alias']
 
 	if user_choice == computer_option_loses_to:
-		print 'You win!'
+		return 'You win!'
 	elif user_choice == computer_option_beats:
-		print 'The computer wins!'
+		return 'The computer wins!'
 	else:
-		print "It's a tie!"
+		return "It's a tie!"
 
 
 def ask_for_input():
 	print 'Welcome to Rock Paper Scissors.'
 	user_choice = str(raw_input('Make a choice: rock (R), paper (P) or scissors (S).'))
+	computer_choice = get_computer_choice()
 
-	if(user_choice == 'R' or user_choice == 'P' or user_choice == 'S'):
+	if(user_choice in ('R','P','S')):
 
-		print 'Your choice was: %s' % (user_choice)
+		return "Your choice was: %s. \n The computer's choice was: %s." % (user_choice, computer_choice)
 
-		computer_choice = get_computer_choice()
-
-		print "The computer's choice was: %s" % (computer_choice)
-
-		print get_beats_list(user_choice,computer_choice)
 	else:
 		return ready
 
