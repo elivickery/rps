@@ -1,17 +1,32 @@
 # First Draft of RPS project
 
-#import random module for later use
+#import random and time modules for later use
 import random
-#import time module for print delay
 import time
+import sys
 
+def print_slow(str):
+    for letter in str:
+        sys.stdout.write(letter)
+        sys.stdout.flush()
+        time.sleep(0.2)
 
-# def print_with_delay(input):
-# 	print input, time.sleep(0.3)
+def get_user_choice():
+	user_choice = str(raw_input('Welcome to Rock Paper Scissors!\nMake a choice: rock (R), paper (P) or scissors (S). ')).upper()
+
+	while True:
+		if(user_choice in ('R','P','S')):
+			return user_choice
+		else:
+			user_choice = str(raw_input("I didn't understand that. Try again: R, P or S? ")).upper()
+	else:
+		exit()
+
 
 def get_computer_choice():
 	computer_choice = random.choice(['R','P','S'])
 	return computer_choice
+
 
 def get_beats_list(user_choice,computer_choice):
 	beats_dict = {
@@ -38,17 +53,8 @@ def get_beats_list(user_choice,computer_choice):
 		}
 	}
 
-	user_option_beats = beats_dict[user_choice]['beats']
-	user_option_ties = beats_dict[user_choice]['ties']
-	user_option_loses_to = beats_dict[user_choice]['loses to']
-	user_option_alias = beats_dict[user_choice]['alias']
-
 	computer_option_beats = beats_dict[computer_choice]['beats']
-	computer_option_ties = beats_dict[computer_choice]['ties']
 	computer_option_loses_to = beats_dict[computer_choice]['loses to']
-	computer_option_alias = beats_dict[computer_choice]['alias']
-
-
 
 	if user_choice == computer_option_loses_to:
 		return 'You win!'
@@ -58,29 +64,43 @@ def get_beats_list(user_choice,computer_choice):
 		return "It's a tie!"
 
 
+def play_again():
 
-def get_user_choice():
-	user_choice = str(raw_input('Welcome to Rock Paper Scissors!\nMake a choice: rock (R), paper (P) or scissors (S). ')).upper()
-
-	if(user_choice in ('R','P','S')):
-
-		return user_choice
-
+	while True:
+		
+		play_again_choice = str(raw_input('Play again? Y/N: ')).upper()
+		
+		if(play_again_choice == 'Y'):
+			print run_game()
+		elif (play_again_choice == 'N'):
+			print 'Ok, thanks for playing!'
+			exit()
+		elif (play_again_choice in ("CONVINCE ME","NOT SURE","I DON'T KNOW")):
+			convince_messages = ("Rock Paper Scissors is the best game ever! Don't believe me? Try it yourself.","C'mon, let's play a game!","You should definitely type Y.")
+			print random.choice(convince_messages)
+		else:
+			print "I didn't understand that."
+	
 	else:
-		return ready
+		exit()
 
 
-def main():
-	ready = 1
+def run_game():
 
-	if(ready):
 		user_choice = get_user_choice()
 		computer_choice = get_computer_choice()
 
 		beats_result = get_beats_list(user_choice, computer_choice)
 
-		return "Your choice was %s.\n\nThe computer's choice was %s.\n\n%s" % (user_choice,computer_choice,beats_result)
+		print_slow('\n...\n...\n...\n')
 
+		return "Your choice was %s.\n\nThe computer's choice was %s.\n\n%s\n" % (user_choice,computer_choice,beats_result)
+
+
+def main():
+
+	print run_game()
+	print play_again()
 
 
 print main()
