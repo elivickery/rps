@@ -12,7 +12,7 @@ def print_slow(str):
         time.sleep(0.2)
 
 def get_user_choice():
-	user_choice = str(raw_input('Welcome to Rock Paper Scissors!\nMake a choice: rock (R), paper (P) or scissors (S). ')).upper()
+	user_choice = str(raw_input('Make a choice: rock (R), paper (P) or scissors (S). ')).upper()
 
 	while True:
 		if(user_choice in ('R','P','S')):
@@ -23,7 +23,9 @@ def get_user_choice():
 		exit()
 
 
-def get_computer_choice():
+def get_computer_choice(user_choice):
+
+	## Randomly generated computer choice
 	computer_choice = random.choice(['R','P','S'])
 	return computer_choice
 
@@ -31,7 +33,6 @@ def get_computer_choice():
 def get_beats_list(user_choice,computer_choice):
 	beats_dict = {
 		'R' : {
-			'alias' : 'rock',
 			'beats' : 'S',
 			'ties' : 'R',
 			'loses to' : 'P'
@@ -39,14 +40,12 @@ def get_beats_list(user_choice,computer_choice):
 			},
 
 		'P' : {
-			'alias' : 'paper',
 			'beats' : 'R',
 			'ties' : 'P',
 			'loses to' : 'S'
 		},
 
 		'S' : {
-			'alias' : 'scissors',
 			'beats' : 'P',
 			'ties' : 'S',
 			'loses to' : 'R'
@@ -57,21 +56,23 @@ def get_beats_list(user_choice,computer_choice):
 	computer_option_loses_to = beats_dict[computer_choice]['loses to']
 
 	if user_choice == computer_option_loses_to:
-		return 'You win!'
+		result = 'Win'
 	elif user_choice == computer_option_beats:
-		return 'The computer wins!'
+		result = "Lose"
 	else:
-		return "It's a tie!"
+		result = 'Tie'
+
+	return result
 
 
-def play_again():
+def play_again(number_wins):
 
 	while True:
-		
+
 		play_again_choice = str(raw_input('Play again? Y/N: ')).upper()
-		
+
 		if(play_again_choice == 'Y'):
-			print run_game()
+			print run_game(number_wins)
 		elif (play_again_choice == 'N'):
 			print 'Ok, thanks for playing!'
 			exit()
@@ -80,27 +81,39 @@ def play_again():
 			print random.choice(convince_messages)
 		else:
 			print "I didn't understand that."
-	
+
 	else:
 		exit()
 
 
-def run_game():
+def run_game(number_wins):
 
 		user_choice = get_user_choice()
-		computer_choice = get_computer_choice()
+		computer_choice = get_computer_choice(user_choice)
 
 		beats_result = get_beats_list(user_choice, computer_choice)
 
 		print_slow('\n...\n...\n...\n')
 
-		return "Your choice was %s.\n\nThe computer's choice was %s.\n\n%s\n" % (user_choice,computer_choice,beats_result)
+		print "Your choice was %s.\n\nThe computer's choice was %s.\n" % (user_choice,computer_choice)
+
+		if(beats_result == 'Win'):
+			number_wins += 1
+			print 'You win!'
+		elif(beats_result == 'Lose'):
+			print 'The computer wins!'
+		else:
+			print "It's a tie!"
+
+		print "Number of times you've won so far: %s" % (number_wins)
+
+		play_again(number_wins)
 
 
 def main():
-
-	print run_game()
-	print play_again()
+	wins = 0
+	print 'Welcome to Rock Paper Scissors!\n'
+	print run_game(wins)
 
 
 print main()
