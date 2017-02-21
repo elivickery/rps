@@ -23,11 +23,23 @@ def get_user_choice():
 		exit()
 
 
-def get_computer_choice(user_choice):
+def get_computer_choice(prev_choice):
 
-	## Randomly generated computer choice
-	computer_choice = random.choice(['R','P','S'])
-	return computer_choice
+	# ## Randomly generated computer choice
+	# computer_choice = random.choice(['R','P','S'])
+	# return computer_choice
+
+	## Computer strategy
+	if(prev_choice == 'R'):
+		computer_choice = 'P'
+	elif(prev_choice == 'P'):
+		computer_choice = 'S'
+	elif(prev_choice == 'S'):
+		computer_choice = 'R'
+	else:
+		computer_choice = random.choice(['R','P','S'])	
+
+	return computer_choice	
 
 
 def get_beats_list(user_choice,computer_choice):
@@ -65,14 +77,14 @@ def get_beats_list(user_choice,computer_choice):
 	return result
 
 
-def play_again(number_wins):
+def play_again(number_wins,prev_choice):
 
 	while True:
 
 		play_again_choice = str(raw_input('Play again? Y/N: ')).upper()
 
 		if(play_again_choice == 'Y'):
-			print run_game(number_wins)
+			print run_game(number_wins,prev_choice)
 		elif (play_again_choice == 'N'):
 			print 'Ok, thanks for playing!'
 			exit()
@@ -86,10 +98,10 @@ def play_again(number_wins):
 		exit()
 
 
-def run_game(number_wins):
+def run_game(number_wins,prev_choice):
 
 		user_choice = get_user_choice()
-		computer_choice = get_computer_choice(user_choice)
+		computer_choice = get_computer_choice(prev_choice)
 
 		beats_result = get_beats_list(user_choice, computer_choice)
 
@@ -107,13 +119,16 @@ def run_game(number_wins):
 
 		print "Number of times you've won so far: %s" % (number_wins)
 
-		play_again(number_wins)
+		play_again(number_wins,user_choice)
+
+		return user_choice
 
 
 def main():
 	wins = 0
+	prev_choice = None
 	print 'Welcome to Rock Paper Scissors!\n'
-	print run_game(wins)
+	print run_game(wins,prev_choice)
 
 
 print main()
