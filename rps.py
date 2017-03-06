@@ -37,9 +37,9 @@ def get_computer_choice(prev_choice):
 	elif(prev_choice == 'S'):
 		computer_choice = 'R'
 	else:
-		computer_choice = random.choice(['R','P','S'])	
+		computer_choice = random.choice(['R','P','S'])
 
-	return computer_choice	
+	return computer_choice
 
 
 def get_beats_list(user_choice,computer_choice):
@@ -81,25 +81,30 @@ def play_again(number_wins,prev_choice):
 
 	while True:
 
+		playing_again = False
+
 		play_again_choice = str(raw_input('Play again? Y/N: ')).upper()
 
 		if(play_again_choice == 'Y'):
-			print run_game(number_wins,prev_choice)
+			playing_again = True
 		elif (play_again_choice == 'N'):
 			print 'Ok, thanks for playing!'
 			exit()
 		elif (play_again_choice in ("CONVINCE ME","NOT SURE","I DON'T KNOW")):
 			convince_messages = ("Rock Paper Scissors is the best game ever! Don't believe me? Try it yourself.","C'mon, let's play a game!","You should definitely type Y.")
 			print random.choice(convince_messages)
+			continue
 		else:
 			print "I didn't understand that."
+			continue
 
-	else:
-		exit()
+		return playing_again
+
 
 
 def run_game(number_wins,prev_choice):
 
+	while True:
 		user_choice = get_user_choice()
 		computer_choice = get_computer_choice(prev_choice)
 
@@ -119,7 +124,12 @@ def run_game(number_wins,prev_choice):
 
 		print "Number of times you've won so far: %s" % (number_wins)
 
-		play_again(number_wins,user_choice)
+		keep_playing = play_again(number_wins,user_choice)
+
+		if keep_playing == True:
+			continue
+		else:
+			break
 
 		return user_choice
 
